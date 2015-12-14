@@ -1,0 +1,27 @@
+language: php
+php:
+  - 5.5
+  - 5.6
+cache:
+  apt: true
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.cache/bin
+before_install:
+  - sh -c 'if [ "$CASHER_DIR" ]; then
+         if [ -x $HOME/.cache/bin/composer ]; then
+           $HOME/.cache/bin/composer self-update; echo '';
+         else
+           mkdir -p $HOME/.cache/bin;
+           curl --connect-timeout 30 -sS https://getcomposer.org/installer
+           | php -- --install-dir $HOME/.cache/bin/ --filename composer;
+         fi
+       fi'
+  - export PATH="$HOME/.cache/bin:$PATH"
+before_script:
+  - composer install --no-interaction --prefer-dist
+script:
+  # Unit tests
+  - sh -c "./vendor/bin/phpunit -c tests/unit/phpunit.xml.dist"
+  # Static tests [Code Style]
+  - sh -c "./vendor/bin/phpunit -c tests/static/phpunit.xml.dist"
