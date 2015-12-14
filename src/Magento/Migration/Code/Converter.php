@@ -7,9 +7,6 @@ namespace Magento\Migration\Code;
 
 class Converter
 {
-    /**
-     * @var ProcessorInterface[]
-     */
     protected $processors;
 
     /**

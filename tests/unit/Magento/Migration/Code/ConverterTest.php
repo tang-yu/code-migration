@@ -41,7 +41,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         $content = file_get_contents(__DIR__ . '/_files/test.php');
 
         $this->processorMock->expects($this->once())
-            ->method('process')
+            ->method('aa')
             ->willReturnArgument(0);
 
         $converted = $this->obj->convert($content);
